@@ -3,6 +3,7 @@ package java8;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.OptionalDouble;
 
 class Cursos {
 	private String nome;
@@ -80,7 +81,13 @@ public class ExemploCursoTestando {
 		cursos.stream()
 		   .filter(c -> c.getAlunos() > 50)
 		   .findFirst();
+		/*
+		 * Calcule a quantidade média de alunos de todos os seus cursos utilizando a API de Stream.
+		 */
 		
-		
+		cursos.stream()
+		.mapToInt(c -> c.getAlunos())
+		.average();
+
 	}
 }
