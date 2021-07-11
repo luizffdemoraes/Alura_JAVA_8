@@ -2,6 +2,7 @@ package java8;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 
 public class DatasTestando {
 	
@@ -22,6 +23,18 @@ public class DatasTestando {
 		
 		LocalDate datas = LocalDate.of(2099, Month.JANUARY, 25);
 		System.out.println(datas);
+		
+		/*
+		 * Criando um período entre duas datas
+		 */
+		Period periodo = Period.between(data, datas);
+		System.out.println(periodo);
+		
+		LocalDate agora = LocalDate.now();
+		LocalDate dataFutura = LocalDate.of(2099, Month.JANUARY, 25);
+
+		Period periodos = Period.between(agora, dataFutura);
+		System.out.println(periodos);
 		
 	}
 
