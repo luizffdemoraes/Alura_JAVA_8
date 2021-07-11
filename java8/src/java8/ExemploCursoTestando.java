@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.OptionalDouble;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Cursos {
 	private String nome;
@@ -89,5 +92,12 @@ public class ExemploCursoTestando {
 		.mapToInt(c -> c.getAlunos())
 		.average();
 
+		/*
+		 * Como podemos transformar esse Stream<Curso> filtrado em uma List<Curso>?
+		 */
+		 List<Cursos> listaCursos = cursos.stream()
+				   .filter(c -> c.getAlunos() > 50)
+				   .collect(Collectors.toList());
+		
 	}
 }
