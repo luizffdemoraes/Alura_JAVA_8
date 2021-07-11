@@ -71,5 +71,16 @@ public class ExemploCursoTestando {
 		   .filter(c -> c.getAlunos() > 50)
 		   .map(Cursos::getAlunos)
 		   .forEach(System.out::println);
+		
+		
+		   
+		/*
+		 * Como podemos fazer pra pegar o primeiro elemento desse Stream filtrado?
+		 */
+		cursos.stream()
+		   .filter(c -> c.getAlunos() > 50)
+		   .findFirst();
+		
+		
 	}
 }
