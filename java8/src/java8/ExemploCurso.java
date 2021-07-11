@@ -3,7 +3,12 @@ package java8;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 class Curso {
     private String nome;
@@ -64,6 +69,62 @@ public class ExemploCurso {
 				.mapToInt(Curso::getAlunos)
 				.sum();
 		
+		// retornando media
+		OptionalDouble media = cursos.stream()
+				.filter(c -> c.getAlunos() >= 100)
+				.mapToInt(Curso::getAlunos)
+				.average();
+		
 		System.out.println(soma);
+		
+		// Optional ajuda a trabalhar com null surgiu no Java 8
+		Optional<Curso> optionalCurso = cursos.stream()
+		.filter(c -> c.getAlunos() >= 100)
+		.findAny();
+		
+		Stream<Curso> filter = cursos.stream()
+				.filter(c -> c.getAlunos() >= 100);
+		
+		List<Curso> collect = cursos.stream()
+		.filter(c -> c.getAlunos() >= 100)
+		.collect(Collectors.toList());
+		
+		// Alteração da referencia da collect
+		cursos = cursos.stream()
+				.filter(c -> c.getAlunos() >= 100)
+				.collect(Collectors.toList());
+		
+		Curso curso = optionalCurso.orElse(null);
+		System.out.println(curso.getNome());
+		
+		optionalCurso.ifPresent(c -> System.out.println(c.getNome()));
+		
+		cursos.stream()
+		.filter(c -> c.getAlunos() >= 100)
+		.findAny()
+		.ifPresent(c -> System.out.println(c.getNome()));
+		
+		Map<String, Integer> map = cursos.stream()
+		.filter(c -> c.getAlunos() >= 100)
+		.collect(Collectors.toMap(
+				c -> c.getNome(), 
+				c -> c.getAlunos())); // toMap chave e valor
+		
+		System.out.println(map);
+		
+		
+		cursos.stream()
+		.filter(c -> c.getAlunos() >= 100)
+		.collect(Collectors.toMap(
+				c -> c.getNome(), 
+				c -> c.getAlunos()))
+		.forEach((nome, alunos) -> System.out.println(nome + " tem " + alunos + " alunos")) ;
+		
+		cursos.parallelStream()
+		.filter(c -> c.getAlunos() >= 100)
+		.collect(Collectors.toMap(
+				c -> c.getNome(), 
+				c -> c.getAlunos()))
+		.forEach((nome, alunos) -> System.out.println(nome + " tem " + alunos + " alunos")) ;
 	}
 }
