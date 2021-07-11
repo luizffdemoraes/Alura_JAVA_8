@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class OrdenaStrings {
 
@@ -58,13 +59,45 @@ public class OrdenaStrings {
 			Integer.compare(s1.length(), s2.length()));
 
 		/*
+		 * Palavras ordene comparando o tamanho da string
+		 */
+		
+//		palavras.sort(Comparator.comparing(s -> s.length()));
+//		// metodo reference é um lambda mais enxuto
+//		palavras.sort(Comparator.comparing(String::length));
+		
+		palavras.sort(String.CASE_INSENSITIVE_ORDER);
+		
+		// Lambda
+//		Function<String, Integer> funcao = s -> s.length();
+		
+		
+		
+		//3 linhas passo a passo sem lambda
+		Function<String, Integer> funcao = new Function<String, Integer>(){
+
+			@Override
+			public Integer apply(String s) {
+				return s.length();
+			}
+			
+		};
+		
+		Function<String, Integer> funcao2 = s -> s.length();
+		
+		Comparator<String> comparador = Comparator.comparing(funcao);
+		palavras.sort(comparador);
+		
+		/*
 		 * Lambda funciona quando temos um metodo abistrato chamado Interface Funcional
 		 */
 
 		System.out.println(palavras);
 		
-		Consumer<String> impressor = s -> System.out.println(s);
-		palavras.forEach(impressor);
+//		Consumer<String> impressor = s -> System.out.println(s);
+		Consumer<String> impressor = System.out::println;
+//		palavras.forEach(impressor);
+		palavras.forEach(System.out::println);
 		
 		/*
 		 * Para uma expressão Lambda se encaixar no codigo e necessário um interface funcional compativel
